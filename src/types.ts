@@ -4,7 +4,8 @@ import type { Queries, BoundFunctions, prettyFormat } from "@testing-library/dom
 
 export interface Ref {
   container?: HTMLElement;
-  dispose: () => void;
+  owner?: Owner | null;
+  dispose: (() => void) | null;
 }
 
 export type Ui = () => JSX.Element;
@@ -28,12 +29,14 @@ export type Result = BoundFunctions<typeof queries> & {
   container: HTMLElement;
   baseElement: HTMLElement;
   debug: DebugFn;
-  unmount: () => void;
+  unmount: (() => void) | null;
 };
 
-export type RenderHookOptions<A extends any[]> = {
-  initialProps?: A
-} | A;
+export type RenderHookOptions<A extends any[]> =
+  | {
+      initialProps?: A;
+    }
+  | A;
 
 export type RenderHookResult<R> = {
   result: R;
