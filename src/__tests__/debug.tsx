@@ -13,7 +13,7 @@ afterEach(() => {
 test("debug pretty prints the container", () => {
   const HelloWorld = () => <h1>Hello World</h1>;
 
-  render(() => <HelloWorld />);
+  render(<HelloWorld />);
 
   screen.debug();
 
@@ -29,7 +29,7 @@ test("debug pretty prints multiple containers", () => {
     </>
   );
 
-  const { debug, getAllByTestId } = render(() => <HelloWorld />);
+  const { debug, getAllByTestId } = render(<HelloWorld />);
   const multipleElements = getAllByTestId("testId");
   debug(multipleElements);
   expect(console.log).toHaveBeenCalledTimes(2);
@@ -38,7 +38,7 @@ test("debug pretty prints multiple containers", () => {
 
 test("allows same arguments as prettyDOM", () => {
   const HelloWorld = () => <h1>Hello World</h1>;
-  const { debug, container } = render(() => <HelloWorld />);
+  const { debug, container } = render(<HelloWorld />);
   debug(container, 6, { highlight: false });
   expect(console.log).toHaveBeenCalledTimes(1);
   // @ts-ignore

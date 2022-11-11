@@ -39,7 +39,7 @@ const wait = (time: number) => new Promise(resolve => setTimeout(resolve, time))
 test("unmounts a component", async () => {
   vi.spyOn(console, "error").mockImplementation(() => {});
 
-  const { unmount, container } = render(() => <StopWatch />);
+  const { unmount, container } = render(<StopWatch />);
 
   userEvent.click(screen.getByText("Start") as Element);
 

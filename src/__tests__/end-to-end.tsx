@@ -23,7 +23,7 @@ function ComponentWithLoader() {
 }
 
 test("it waits for the data to be loaded", async () => {
-  render(() => <ComponentWithLoader />);
+  render(<ComponentWithLoader />);
   const loading = () => screen.getByText("Loading...");
   await waitForElementToBeRemoved(loading);
   expect(screen.getByTestId("message")).toHaveTextContent(/Hello World/);

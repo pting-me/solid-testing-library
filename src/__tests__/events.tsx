@@ -143,7 +143,7 @@ eventTypes.forEach(({ type, events, elementType, init }) => {
         let ref!: HTMLElement;
         const spy = vi.fn();
 
-        render(() => <Dynamic component={elementType} ref={ref} />);
+        render(<Dynamic component={elementType} ref={ref} />);
         event(ref, eventProp, spy);
 
         // @ts-ignore
@@ -160,7 +160,7 @@ test("onInput works", async () => {
 
   const {
     container: { firstChild: input }
-  } = render(() => <input type="text" onInput={handler} />);
+  } = render(<input type="text" onInput={handler} />);
 
   await userEvent.type(input! as Element, "a");
 
@@ -172,7 +172,7 @@ test("calling `fireEvent` directly works too", () => {
 
   const {
     container: { firstChild: button }
-  } = render(() => <button onClick={handleEvent} />);
+  } = render(<button onClick={handleEvent} />);
 
   fireEvent(
     button!,

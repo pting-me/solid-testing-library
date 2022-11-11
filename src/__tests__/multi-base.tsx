@@ -17,11 +17,11 @@ afterAll(() => {
 });
 
 test("baseElement isolates trees from one another", () => {
-  const { getByText: getByTextInA } = render(() => <div>Jekyll</div>, {
+  const { getByText: getByTextInA } = render(<div>Jekyll</div>, {
     baseElement: treeA
   });
 
-  const { getByText: getByTextInB } = render(() => <div>Hyde</div>, {
+  const { getByText: getByTextInB } = render(<div>Hyde</div>, {
     baseElement: treeB
   });
 

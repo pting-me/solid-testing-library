@@ -17,7 +17,7 @@ test("render calls createEffect immediately", () => {
     return null;
   }
 
-  render(() => <Comp />);
+  render(<Comp />);
 
   expect(cb).toHaveBeenCalledTimes(1);
 });
@@ -25,7 +25,7 @@ test("render calls createEffect immediately", () => {
 test("findByTestId returns the element", async () => {
   let ref!: HTMLDivElement;
 
-  render(() => <div ref={ref} data-testid="foo" />);
+  render(<div ref={ref} data-testid="foo" />);
 
   expect(await screen.findByTestId("foo")).toBe(ref);
 });
@@ -34,16 +34,15 @@ test("userEvent triggers createEffect calls", async () => {
   const cb = vi.fn();
 
   function Counter() {
-    createEffect(() => (count(), cb()));
-
     const [count, setCount] = createSignal(0);
+    createEffect(() => (count(), cb()));
 
     return <button onClick={() => setCount(count() + 1)}>{count()}</button>;
   }
 
   const {
     container: { firstChild: buttonNode }
-  } = render(() => <Counter />);
+  } = render(<Counter />);
 
   cb.mockClear();
   await userEvent.click(buttonNode! as Element);
@@ -59,13 +58,13 @@ test("calls to hydrate will run createEffects", () => {
     return null;
   }
 
-  render(() => <Comp />, { hydrate: true });
+  render(<Comp />, { hydrate: true });
 
   expect(cb).toHaveBeenCalledTimes(1);
 });
 
 test("queries should not return elements outside of the container", () => {
-  const { container, getAllByText } = render(() => <div>Some text...</div>);
+  const { container, getAllByText } = render(<div>Some text...</div>);
   const falseContainer = document.createElement("p");
   falseContainer.textContent = "Some text...";
   container.parentNode!.insertBefore(falseContainer, getAllByText("Some text...")[0].parentNode);
@@ -73,7 +72,7 @@ test("queries should not return elements outside of the container", () => {
 });
 
 test("wrapper option works correctly", () => {
-  const { asFragment } = render(() => <div>Component</div>, {
+  const { asFragment } = render(<div>Component</div>, {
     wrapper: props => <div>Wrapper {props.children}</div>
   });
   expect(asFragment()).toBe("<div>Wrapper <div>Component</div></div>");
